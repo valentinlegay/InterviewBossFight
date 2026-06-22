@@ -25,14 +25,21 @@
     </section>
 
     @if (!gameOver()) {
-      <section class="attack-panel">
-        @for (option of currentQuestion().options; track option; let i = $index) {
-          <button type="button" class="attack-btn" (click)="attack(i)">
-            <span class="attack-tag">Attack {{ i + 1 }}</span>
-            <span class="attack-text">{{ option }}</span>
-          </button>
-        }
-      </section>
+      @if (explanationVisible()) {
+        <section class="explanation-panel">
+          <p class="feedback">{{ feedback() }}</p>
+          <button type="button" class="next-btn" (click)="nextQuestion()">Next</button>
+        </section>
+      } @else {
+        <section class="attack-panel">
+          @for (option of currentQuestion().options; track option; let i = $index) {
+            <button type="button" class="attack-btn" (click)="attack(i)">
+              <span class="attack-tag">Attack {{ i + 1 }}</span>
+              <span class="attack-text">{{ option }}</span>
+            </button>
+          }
+        </section>
+      }
     }
 
     @if (gameOver()) {
@@ -40,8 +47,6 @@
         <p class="result-text">{{ feedback() }}</p>
         <button type="button" class="restart-btn" (click)="restart()">Play again</button>
       </section>
-    } @else {
-      <p class="feedback">{{ feedback() }}</p>
     }
   </main>
 </section>

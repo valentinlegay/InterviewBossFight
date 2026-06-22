@@ -106,8 +106,16 @@ button {
   gap: 1rem;
 }
 
+.explanation-panel {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
 .attack-btn,
-.restart-btn {
+.restart-btn,
+.next-btn {
   border: 0;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -127,7 +135,9 @@ button {
   box-shadow: inset 0 0 0 1px rgba(137, 92, 255, 0.18);
 }
 
-.attack-btn:hover {
+.attack-btn:hover,
+.next-btn:hover,
+.restart-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(31, 40, 99, 0.42);
 }
@@ -158,6 +168,7 @@ button {
   gap: 0.8rem;
 }
 
+.next-btn,
 .restart-btn {
   background: linear-gradient(90deg, #7d5cff, #4dd0ff);
   color: #08111f;
