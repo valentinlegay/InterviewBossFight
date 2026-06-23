@@ -23,28 +23,28 @@ interface MailtoParams {
 })
 export class App {
   
-  protected readonly textRecruter: string = 'Vous souhaitez me recruter ?';
+  protected readonly textRecruter: string = 'Valentin : Vous souhaitez me recruter ?';
   protected readonly questions: Question[] = [
     {
-      prompt: 'Valentin : Je suis capable de créer des applications web dynamiques et performantes en Angular et en TypeScript ?',
+      prompt: 'Valentin : Vous pensez que suis capable de créer des applications web dynamiques et performantes en Angular et en TypeScript ?',
       options: ['OUI', 'NON'],
       correct: 0,
       explanation: 'J\'ai pû apprend angular lors de mon master, l\'appliquer professionnelement sur un projet de fraude à l\'assurance.'
     },
     {
-      prompt: 'Je suis capable de créer des back-end Java performants et sécurisés, en utilisant des frameworks tels que Spring Boot.',
+      prompt: 'Valentin : Vous pensez que suis capable de créer des back-end Java performants et sécurisés, en utilisant des frameworks tels que Spring Boot ?',
       options: ['OUI', 'NON'],
       correct: 0,
       explanation: 'J\'ai commencé à apprendre Java en autodidacte lors de ma licence en mathématique et est ainsi tombé amoureux au métier de développeur. J\'ai donc désidé de me rediriger vers le métier de développeur en suivant un DUT Informatique puis un Master Informatique MIAGE.'
     },
     {
-      prompt: 'Je connais le fonctionnement des Bases de données relationnelles et NoSQL.',
+      prompt: 'Valentin : Vous pensez que suis capable de comprendre et d\'utiliser les concepts de base des Bases de données relationnelles et NoSQL ?',
       options: ['OUI', 'NON'],
       correct: 0,
       explanation: 'J\'ai pû apprendre le fonctionnement des Bases de données relationnelles et NoSQL lors de mon master. Et les mettre en pratique lors d\'une refactorisation du contexte client d\'un CRM chez MMA.'
     },
     {
-      prompt: 'J\'ai des connaissances approfondies sur tout les outils de travail collaboratif et de gestion de projet, tels que Git, Jira, Confluence, Jenkins, windows365, etc.',
+      prompt: 'Valentin : Vous pensez que suis capable de gérer les outils de travail collaboratif et de gestion de projet, tels que Git, Jira, Confluence, Jenkins, windows365, etc. ?',
       options: ['OUI', 'NON'],
       correct: 0,
       explanation: 'J\'ai pu apprendre à les utiliser dans mon Master, lors de mes expériences professionnelles à EDF et à MMA ainsi que lors de mes projets personnels. J\'ai donc une connaissance approfondie de ces outils.'
