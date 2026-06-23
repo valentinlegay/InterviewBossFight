@@ -1,7 +1,7 @@
 <section class="game-shell">
   <header class="hud">
     <div class="stat-card">
-      <span class="label">Boss</span>
+      <span class="label">Valentin</span>
       <div class="bar">
         <div class="fill boss" [style.width]="bossHealth() + '%'"></div>
       </div>
@@ -9,7 +9,7 @@
     </div>
 
     <div class="stat-card">
-      <span class="label">Player</span>
+      <span class="label">Vous</span>
       <div class="bar">
         <div class="fill player" [style.width]="playerHealth() + '%'"></div>
       </div>
@@ -17,35 +17,49 @@
     </div>
   </header>
 
-  <main class="arena">
-    <section class="boss-panel">
-      <div class="boss-avatar">👹</div>
-      <p class="boss-title">Boss Angular</p>
-      <h2>{{ currentQuestion().prompt }}</h2>
-    </section>
+  <main>
+    <div class="arena" [class.correct]="answerState() === 'correct'" [class.wrong]="answerState() === 'wrong'">
+      <section class="boss-panel">
+        <div class="boss-avatar">
+          <div class="image-wrapper">
+            <img src="images/pixel.png" alt="Valentin" class="avatar-image">
+          </div>
+        </div>
+        <p class="boss-title">Valentin</p>
+        <h2>{{ currentQuestion().prompt }}</h2>
+      </section>
 
-    @if (!gameOver()) {
-      @if (explanationVisible()) {
-        <section class="explanation-panel">
-          <p class="feedback">{{ feedback() }}</p>
-          <button type="button" class="next-btn" (click)="nextQuestion()">Next</button>
-        </section>
-      } @else {
-        <section class="attack-panel">
-          @for (option of currentQuestion().options; track option; let i = $index) {
-            <button type="button" class="attack-btn" (click)="attack(i)">
-              <span class="attack-tag">Attack {{ i + 1 }}</span>
-              <span class="attack-text">{{ option }}</span>
-            </button>
-          }
+      @if (!gameOver()) {
+        @if (explanationVisible()) {
+          <section class="explanation-panel">
+            <p class="feedback">{{ feedback() }}</p>
+            <button type="button" class="next-btn" (click)="nextQuestion()">Next</button>
+          </section>
+        } @else {
+          <section class="attack-panel">
+            @for (option of currentQuestion().options; track option; let i = $index) {
+              <button type="button" class="attack-btn" (click)="attack(i)">
+                <span class="attack-text">{{ option }}</span>
+              </button>
+            }
+          </section>
+        }
+      }
+
+      @if (gameOver()) {
+        <section class="result-panel">
+          <p class="result-text">{{ feedback() }}</p>
+          <button type="button" class="restart-btn" (click)="restart()">Play again</button>
         </section>
       }
-    }
-
-    @if (gameOver()) {
-      <section class="result-panel">
-        <p class="result-text">{{ feedback() }}</p>
-        <button type="button" class="restart-btn" (click)="restart()">Play again</button>
+    </div>
+    @if (contact()) {
+      <section (close)="contact.set(false)" class="contact-panel">
+        <p>Contactez-moi !</p>
+        <p>MAIL : <a href="mailto:valent.legay@gmail.com?subject=Contact&body=Bonjour" class="contact-link">valent.legay@gmail.com</a></p>
+        <p>Teams : <a href="https://teams.microsoft.com/l/chat/0/0?users=valent.legay@gmail.com" class="contact-link" target="_blank" rel="noopener">Valentin Legay</a></p>
+        <p>LinkedIn : <a href="https://www.linkedin.com/in/valentin-legay/" class="contact-link" target="_blank" rel="noopener">Valentin Legay</a></p>
+        <p>Telephone : <a href="tel:+33612345678" class="contact-link">+33 6 05 22 92 56</a></p>
       </section>
     }
   </main>

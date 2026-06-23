@@ -7,6 +7,14 @@ interface Question {
   explanation: string;
 }
 
+interface MailtoParams {
+  to: string;
+  subject?: string;
+  body?: string;
+  cc?: string;
+  bcc?: string;
+}
+
 @Component({
   selector: 'app-root',
   imports: [],
@@ -14,82 +22,75 @@ interface Question {
   styleUrl: './app.css'
 })
 export class App {
+  
+  protected readonly textRecruter: string = 'Vous souhaitez me recruter ?';
   protected readonly questions: Question[] = [
     {
-      prompt: 'Ce profil à des compétences avancées en Angular et en TypeScript, et est capable de créer des applications web dynamiques et performantes.',
-      options: ['Evidemment, c\'est le profil rêvé', 'Non, il n\'a aucune compétence'],
+      prompt: 'Valentin : Je suis capable de créer des applications web dynamiques et performantes en Angular et en TypeScript ?',
+      options: ['OUI', 'NON'],
       correct: 0,
       explanation: 'J\'ai pû apprend angular lors de mon master, l\'appliquer professionnelement sur un projet de fraude à l\'assurance.'
     },
     {
-      prompt: 'Ce profil est capable de créer des back-end Java performants et sécurisés, en utilisant des frameworks tels que Spring Boot.',
-      options: ['Si l\'objectif est d\'avoir un employé compétents, autonome et motivé, alors OUI', 'Il n\'a aucun avenir dans le milieux du développement.'],
+      prompt: 'Je suis capable de créer des back-end Java performants et sécurisés, en utilisant des frameworks tels que Spring Boot.',
+      options: ['OUI', 'NON'],
       correct: 0,
       explanation: 'J\'ai commencé à apprendre Java en autodidacte lors de ma licence en mathématique et est ainsi tombé amoureux au métier de développeur. J\'ai donc désidé de me rediriger vers le métier de développeur en suivant un DUT Informatique puis un Master Informatique MIAGE.'
     },
     {
-      prompt: 'Ce profil connais le fonctionnement des Bases de données relationnelles et NoSQL.',
+      prompt: 'Je connais le fonctionnement des Bases de données relationnelles et NoSQL.',
       options: ['OUI', 'NON'],
       correct: 0,
-      explanation: 'Je suis le boss.'
+      explanation: 'J\'ai pû apprendre le fonctionnement des Bases de données relationnelles et NoSQL lors de mon master. Et les mettre en pratique lors d\'une refactorisation du contexte client d\'un CRM chez MMA.'
     },
     {
-      prompt: 'What is the main benefit of Signals?',
-      options: [
-        'They replace all forms completely',
-        'They make reactive state easier to track',
-        'They are only used for styling'
-      ],
-      correct: 1,
-      explanation: 'Signals make reactivity explicit and easy to follow.'
-    },
-    {
-      prompt: 'What does @Input() do in Angular?',
-      options: [
-        'It sends data from parent to child',
-        'It removes a component',
-        'It creates a new route'
-      ],
+      prompt: 'J\'ai des connaissances approfondies sur tout les outils de travail collaboratif et de gestion de projet, tels que Git, Jira, Confluence, Jenkins, windows365, etc.',
+      options: ['OUI', 'NON'],
       correct: 0,
-      explanation: '@Input() passes data from a parent component to a child.'
+      explanation: 'J\'ai pu apprendre à les utiliser dans mon Master, lors de mes expériences professionnelles à EDF et à MMA ainsi que lors de mes projets personnels. J\'ai donc une connaissance approfondie de ces outils.'
     },
     {
-      prompt: 'What is the main difference between Signals and RxJS?',
-      options: [
-        'RxJS is for async streams, Signals are for local reactive state',
-        'Signals are heavier than RxJS',
-        'RxJS works only for forms'
-      ],
+      prompt: this.textRecruter,
+      options: ['OUI', 'NON'],
       correct: 0,
-      explanation: 'Signals are for state, RxJS is for composing streams.'
-    },
-    {
-      prompt: 'Which decorator marks a service for dependency injection?',
-      options: ['@Component', '@Injectable', '@Directive'],
-      correct: 1,
-      explanation: '@Injectable lets Angular inject the service.'
+      explanation: 'Contactez-moi pour en savoir plus sur mes compétences et mon expérience, et pour discuter de la manière dont je peux contribuer à votre équipe de développement.'
     }
   ];
 
   protected readonly questionIndex = signal(0);
   protected readonly bossHealth = signal(100);
   protected readonly playerHealth = signal(100);
-  protected readonly feedback = signal('The boss sends a new Angular question!');
+  protected readonly feedback = signal('Valentin vous envoie une question!');
   protected readonly gameOver = signal(false);
   protected readonly explanationVisible = signal(false);
+  protected readonly contact = signal(false);
 
   protected readonly currentQuestion = computed(() => this.questions[this.questionIndex()]);
+  protected readonly answerState = signal<'none' | 'correct' | 'wrong'>('none');
 
   protected attack(optionIndex: number): void {
+    if (this.currentQuestion().prompt === this.textRecruter && optionIndex === 0) {
+      this.bossHealth.set(0);
+      this.contact.set(true);
+    }
+    if (this.currentQuestion().prompt === this.textRecruter && optionIndex === 1) {
+      this.playerHealth.set(0);
+      this.contact.set(true);
+    }
+
     if (this.gameOver() || this.explanationVisible()) {
       return;
     }
 
     const question = this.currentQuestion();
     const isCorrect = optionIndex === question.correct;
+    const state = isCorrect ? 'correct' : 'wrong';
+
+    this.answerState.set(state);
+    window.setTimeout(() => this.answerState.set('none'), 600);
 
     if (isCorrect) {
-      this.bossHealth.update((value) => Math.max(0, value - 25));
+      this.bossHealth.update((value) => Math.max(0, value - 20));
       this.feedback.set(`Correct! ${question.explanation}`);
     } else {
       this.playerHealth.update((value) => Math.max(0, value - 20));
@@ -98,14 +99,14 @@ export class App {
 
     if (this.bossHealth() <= 0) {
       this.gameOver.set(true);
-      this.feedback.set('You defeated the boss!');
+      this.feedback.set('Vous avez gagné ! Contactez-moi pour en savoir plus !');
       this.explanationVisible.set(false);
       return;
     }
 
     if (this.playerHealth() <= 0) {
       this.gameOver.set(true);
-      this.feedback.set('The boss defeated you...');
+      this.feedback.set('J\'ai gagné ! Vous devriez me contacter pour avoir une chance de me battre !.');
       this.explanationVisible.set(false);
       return;
     }
@@ -121,6 +122,7 @@ export class App {
     if (this.questionIndex() < this.questions.length - 1) {
       this.questionIndex.update((value) => value + 1);
       this.explanationVisible.set(false);
+      this.answerState.set('none');
       this.feedback.set('New question incoming!');
       return;
     }
@@ -137,5 +139,39 @@ export class App {
     this.feedback.set('The boss sends a new Angular question!');
     this.gameOver.set(false);
     this.explanationVisible.set(false);
+    this.answerState.set('none');
+  }
+
+  protected openMailClient(params: MailtoParams): void {
+    const { to, subject, body, cc, bcc } = params;
+
+    let mailtoLink = `mailto:${encodeURIComponent(to)}`;
+    const queryParams: string[] = [];
+
+    if (subject) queryParams.push(`subject=${encodeURIComponent(subject)}`);
+    if (body) queryParams.push(`body=${encodeURIComponent(body)}`);
+    if (cc) queryParams.push(`cc=${encodeURIComponent(cc)}`);
+    if (bcc) queryParams.push(`bcc=${encodeURIComponent(bcc)}`);
+
+    if (queryParams.length > 0) {
+      mailtoLink += `?${queryParams.join('&')}`;
+    }
+    
+    // Try to open mail client by creating and clicking an anchor (better compatibility)
+    try {
+      const a = document.createElement('a');
+      a.href = mailtoLink;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch (e) {
+      // Fallback: attempt to open in a new window/tab
+      window.open(mailtoLink, '_blank');
+    }
+  }
+
+  protected test(): void {
+    console.log('Test button clicked');
   }
 }
