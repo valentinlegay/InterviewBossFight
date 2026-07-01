@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
         - name: angular-boss-fight
-          image: angular-boss-fight:latest
+          image: vakile/image-valentin-legay:1.6
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           resources:
             limits:
               cpu: 250m
