@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-boss-fight
+  labels:
+    app: angular-boss-fight
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: angular-boss-fight
+  template:
+    metadata:
+      labels:
+        app: angular-boss-fight
+    spec:
+      containers:
+        - name: angular-boss-fight
+          image: angular-boss-fight:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi

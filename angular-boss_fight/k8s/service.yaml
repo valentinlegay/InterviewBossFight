@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: angular-boss-fight
+spec:
+  type: LoadBalancer
+  selector:
+    app: angular-boss-fight
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
