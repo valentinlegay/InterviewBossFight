@@ -14,10 +14,14 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', async () => {
+  it('should render a contact button', async () => {
     const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
+    (fixture.componentInstance as any).contact.set(true);
+    fixture.detectChanges();
+
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-boss_fight');
+    const button = compiled.querySelector('.contact-btn');
+
+    expect(button?.textContent).toContain('Envoyer un mail');
   });
 });

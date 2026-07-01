@@ -56,7 +56,11 @@
     @if (contact()) {
       <section (close)="contact.set(false)" class="contact-panel">
         <p>Contactez-moi !</p>
-        <p>MAIL : <a href="mailto:valent.legay@gmail.com?subject=Contact&body=Bonjour" class="contact-link">valent.legay@gmail.com</a></p>
+        <!-- <p>MAIL : <button type="button" class="contact-btn" (click)="sendContactMail()">valent.legay@gmail.com</button></p> -->
+        <p>MAIL : <button type="button" class="contact-link contact-btn" (click)="sendContactMail()">valent.legay@gmail.com</button></p>
+
+        
+        <!-- <p>MAIL : <a href="mailto:valent.legay@gmail.com?subject=Échange autour d’une opportunité professionnellet&body=bonjours" class="contact-link">valent.legay@gmail.com</a></p> -->
         <p>Teams : <a href="https://teams.microsoft.com/l/chat/0/0?users=valent.legay@gmail.com" class="contact-link" target="_blank" rel="noopener">Valentin Legay</a></p>
         <p>LinkedIn : <a href="https://www.linkedin.com/in/valentin-legay/" class="contact-link" target="_blank" rel="noopener">Valentin Legay</a></p>
         <p>Telephone : <a href="tel:+33605229256" class="contact-link">+33 6 05 22 92 56</a></p>

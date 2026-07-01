@@ -65,6 +65,28 @@ export class App {
   protected readonly explanationVisible = signal(false);
   protected readonly contact = signal(false);
 
+  protected readonly emailBody = `Bonjour valentin,
+
+J’espère que vous allez bien.
+
+Je me permets de vous contacter car votre parcours et votre expérience ont particulièrement retenu mon attention. Votre profil correspond à des compétences et des qualités que nous apprécions fortement dans notre organisation.
+
+Dans ce cadre, je serais ravi d’échanger avec vous afin de mieux vous connaître, comprendre votre parcours et vous présenter une opportunité de collaboration qui pourrait, je pense, correspondre à vos aspirations.
+
+L’objectif de ce message est avant tout d’ouvrir un échange simple et informel, sans engagement, pour voir si une rencontre pourrait être pertinente.
+
+Seriez-vous disponible dans les prochains jours pour un court entretien (téléphonique ou en visio) ?
+
+Je reste bien entendu à votre disposition et serais très heureux de pouvoir rester en contact, même si ce n’est pas le bon moment pour vous aujourd’hui.
+
+Dans l’attente de votre retour, je vous souhaite une excellente journée.
+
+Bien cordialement,
+[Votre nom]
+[Votre poste]
+[Votre entreprise]
+[Coordonnées]`;
+
   protected readonly currentQuestion = computed(() => this.questions[this.questionIndex()]);
   protected readonly answerState = signal<'none' | 'correct' | 'wrong'>('none');
 
@@ -140,6 +162,14 @@ export class App {
     this.gameOver.set(false);
     this.explanationVisible.set(false);
     this.answerState.set('none');
+  }
+
+  protected sendContactMail(): void {
+    this.openMailClient({
+      to: 'valent.legay@gmail.com',
+      subject: 'Échange autour d’une opportunité professionnelle',
+      body: this.emailBody
+    });
   }
 
   protected openMailClient(params: MailtoParams): void {

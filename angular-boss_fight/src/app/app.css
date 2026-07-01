@@ -138,7 +138,6 @@ button {
 
 .attack-btn,
 .restart-btn,
-.contact-btn,
 .next-btn {
   border: 0;
   cursor: pointer;
@@ -163,7 +162,6 @@ button {
 
 .attack-btn:hover,
 .next-btn:hover,
-.contact-btn:hover,
 .restart-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(31, 40, 99, 0.42);
@@ -260,11 +258,8 @@ button {
   color: #7d5cff;
   text-decoration: underline;
 }
-.contact-btn {
-  background: linear-gradient(90deg, #7d5cff, #4dd0ff);
-  color: #08111f;
-  font-weight: 700;
-  padding: 0.8rem 1.2rem;
-  border-radius: 999px;
+
+.contact-btn:hover {
+  cursor: pointer;
 }
 
